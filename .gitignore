@@ -1,0 +1,3 @@
+# Local overrides (template: backend/.example.env)
+backend/.env
+backend/.venv/

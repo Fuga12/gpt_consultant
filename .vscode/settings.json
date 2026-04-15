@@ -3,7 +3,7 @@
   "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
   "editor.codeActions.triggerOnFocusChange": true,
   "[python]": {
-      "editor.formatOnSave": true, // по желанию, не рекомендуется добавлять до того как вся директория april/ будет отформатирована
+      "editor.formatOnSave": true,
       "editor.codeActionsOnSave": {
           "source.organizeImports.ruff": "always"
       }

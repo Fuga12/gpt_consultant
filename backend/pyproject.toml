@@ -12,8 +12,10 @@ description = "Base litestar app"
 requires-python = ">=3.12"
 dependencies = [
     "asyncpg>=0.31.0",
+    "httpx>=0.28.0",
     "litestar>=2.21.1",
     "pydantic-settings>=2.13.1",
+    "pyrogram>=2.0.106",
     "sqlalchemy>=2.0.48",
     "uvicorn>=0.42.0",
 ]

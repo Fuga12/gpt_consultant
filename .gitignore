@@ -1,3 +1,12 @@
 # Local overrides (template: backend/.example.env)
 backend/.env
 backend/.venv/
+
+# Python / tooling caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.cache/

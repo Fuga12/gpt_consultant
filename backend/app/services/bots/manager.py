@@ -5,7 +5,7 @@ from app.services.accounts.repository import AccountRepository
 from app.services.bots.repository import BotRepository
 from app.services.chat.session import ChatSession
 from app.services.clients.llm import LLMClient
-from app.services.platforms.base import PlatformFactory, PlatformType
+from app.services.platforms.base import Message, PlatformFactory, PlatformType
 
 
 class BotManager:
@@ -27,12 +27,14 @@ class BotManager:
         account_id: UUID,
         chat_id: str,
         end_user_id: str,
+        user_message: str,
     ) -> str:
         account = await Account.get(account_id, self._account_repo)
         bot = await account.get_active_bot(platform_type, self._bot_repo)
         platform = self._platform_factory.get(platform_type)
 
-        history = await platform.fetch_history(chat_id, bot.credentials)
+        prior = await platform.fetch_history(chat_id, bot.credentials)
+        history = [*prior, Message(role="user", content=user_message)]
         chat = ChatSession(
             chat_id=chat_id,
             platform=platform_type,

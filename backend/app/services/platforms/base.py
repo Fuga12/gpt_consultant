@@ -24,7 +24,12 @@ class Platform(ABC):
     async def fetch_history(self, chat_id: str, credentials: dict) -> list[Message]: ...
 
     @abstractmethod
-    async def send_message(self, chat_id: str, text: str, credentials: dict) -> None: ...
+    async def send_message(
+        self,
+        chat_id: str,
+        text: str,
+        credentials: dict,
+    ) -> None: ...
 
 
 class PlatformFactory:

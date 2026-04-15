@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -15,13 +16,16 @@ if TYPE_CHECKING:
 @dataclass
 class Account:
     id: UUID
-    # name: str
-    # created_at: datetime
+    name: str
+    created_at: datetime
 
     @classmethod
-    async def get(cls, account_id: UUID, repo: AccountRepository) -> Account: ...
+    async def get(cls, account_id: UUID, repo: AccountRepository) -> Account:
+        return await repo.get(account_id)
 
     @classmethod
-    async def create(cls, name: str, repo: AccountRepository) -> Account: ...
+    async def create(cls, name: str, repo: AccountRepository) -> Account:
+        return await repo.create(name)
 
-    async def get_active_bot(self, platform: PlatformType, repo: BotRepository) -> Bot: ...
+    async def get_active_bot(self, platform: PlatformType, repo: BotRepository) -> Bot:
+        return await repo.get_active(self.id, platform)

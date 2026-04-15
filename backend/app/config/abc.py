@@ -12,6 +12,12 @@ class DatabaseSettings(BaseModel):
     name: str = "app"
 
 
+class YagptSettings(BaseModel):
+    folder_id: str = ""
+    api_key: str = ""
+    model_uri: str = ""
+
+
 class AppSettings(BaseSettings, ABC):
     """Схема настроек; значения задают подклассы (dev / stable / dummy)."""
 
@@ -28,3 +34,4 @@ class AppSettings(BaseSettings, ABC):
     debug: bool
     port: int = Field(default=8000, ge=1, le=65535, description="Порт HTTP (uvicorn)")
     database: DatabaseSettings
+    yagpt: YagptSettings = Field(default_factory=YagptSettings)

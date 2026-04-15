@@ -20,4 +20,4 @@ def get_settings() -> AppSettings:
             return DummySettings()
 
 
-settings = get_settings()()
+settings = get_settings()

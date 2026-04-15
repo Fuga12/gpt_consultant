@@ -1,0 +1,5 @@
+# Общий стек. Сейчас только backend; позже сюда же можно добавить nginx и др.
+name: litestar_base
+
+include:
+  - path: backend/docker-compose.yml

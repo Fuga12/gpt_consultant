@@ -1,0 +1,130 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "atlasMigrationName",
+      "type": "promptString",
+      "description": "Имя новой миграции (латиница, snake_case)",
+      "default": "change"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "uv: sync",
+      "type": "shell",
+      "command": "uv sync",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PATH": "${env:HOME}/.local/bin:${env:HOME}/.cargo/bin:${env:PATH}"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "ruff: check",
+      "type": "shell",
+      "command": "uv run ruff check app",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PATH": "${env:HOME}/.local/bin:${env:HOME}/.cargo/bin:${env:PATH}"
+        }
+      },
+      "group": "test",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "ruff: format",
+      "type": "shell",
+      "command": "uv run ruff format app",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PATH": "${env:HOME}/.local/bin:${env:HOME}/.cargo/bin:${env:PATH}"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "pytest",
+      "type": "shell",
+      "command": "uv run pytest",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "env": {
+          "PATH": "${env:HOME}/.local/bin:${env:HOME}/.cargo/bin:${env:PATH}"
+        }
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "clean: python cache",
+      "type": "shell",
+      "command": "find . -path './.venv' -prune -o -type d -name '__pycache__' -print0 | xargs -0r rm -rf; find . -path './.venv' -prune -o -type d -name '.pytest_cache' -print0 | xargs -0r rm -rf",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "clean: ruff cache",
+      "type": "shell",
+      "command": "rm -rf .ruff_cache app/.ruff_cache",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "clean: python & ruff cache",
+      "dependsOn": ["clean: python cache", "clean: ruff cache"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "atlas: migrate diff",
+      "type": "shell",
+      "command": "atlas migrate diff ${input:atlasMigrationName} --env local",
+      "options": {
+        "cwd": "${workspaceFolder}/backend",
+        "envFile": "${workspaceFolder}/backend/.env",
+        "env": {
+          "PATH": "${env:HOME}/.local/bin:${env:HOME}/bin:${env:HOME}/.cargo/bin:${env:PATH}"
+        }
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

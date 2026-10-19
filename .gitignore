@@ -2,6 +2,13 @@
 backend/.env
 backend/.venv/
 
+# Telegram client sessions and local credential-bearing seed files
+*.session
+*.session-journal
+*.session-wal
+*.session-shm
+*.local.sql
+
 # Python / tooling caches
 __pycache__/
 *.py[cod]

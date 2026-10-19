@@ -47,7 +47,7 @@ atlas migrate apply --env apply
 
 ## VS Code / Cursor
 
-Рекомендуется открывать **корень репозитория** `litestar_start`, чтобы сработали пути в [`.vscode/`](../.vscode).
+Рекомендуется открывать **корень репозитория** `gpt_consultant`, чтобы сработали пути в [`.vscode/`](../.vscode).
 
 1. Установить предложенные расширения (Python, Ruff).
 2. В каталоге `backend`: `uv sync` — появится `.venv`.
